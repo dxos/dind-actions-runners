@@ -1,0 +1,15 @@
+---
+  version: "3.5"
+  services:
+    dxos-actions-runner:
+      privileged: true
+      stdin_open: true
+      tty: true
+      build:
+        context: .
+        dockerfile: Dockerfile
+        target: dxos-actions-runner
+      restart: on-failure:1
+      environment:
+        - WORKER_LABELS=dind-actions-runner
+        - GITHUB_PAT=$GITHUB_PAT
