@@ -7,7 +7,6 @@ ENV DEBIAN_FRONTEND "noninteractive"
 # Personal Access Token with rights to register the runner
 ENV GITHUB_PAT "{{ github_pat }}"
 ENV GITHUB_OWNER "dxos"
-ENV GITHUB_REPOSITORY "protocols"
 ENV RUNNER_WORKDIR "_work"
 
 RUN apt-get update \

@@ -39,7 +39,7 @@ done
 # Runner-specific actions taken from https://sanderknape.com/2020/03/self-hosted-github-actions-runner-kubernetes/
 GITHUB_RUNNER_VERSION=$(curl --silent https://api.github.com/repos/actions/runner/releases | grep '"tag_name":' | cut -d'"' -f4|sed 's/^.//' | head -n 1)
 curl -Ls https://github.com/actions/runner/releases/download/v${GITHUB_RUNNER_VERSION}/actions-runner-linux-x64-${GITHUB_RUNNER_VERSION}.tar.gz | tar xz
-registration_url="https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPOSITORY}/actions/runners/registration-token"
+registration_url="https://api.github.com/orgs/${GITHUB_OWNER}/actions/runners/registration-token"
 echo "Requesting registration URL at '${registration_url}'"
 
 payload=$(curl -sX POST -H "Authorization: token ${GITHUB_PAT}" ${registration_url})
@@ -48,7 +48,7 @@ export RUNNER_TOKEN=$(echo $payload | jq .token --raw-output)
 ./config.sh \
     --name $(hostname) \
     --token ${RUNNER_TOKEN} \
-    --url https://github.com/${GITHUB_OWNER}/${GITHUB_REPOSITORY} \
+    --url https://github.com/${GITHUB_OWNER} \
     --work ${RUNNER_WORKDIR} \
     --labels ${WORKER_LABELS} \
     --unattended \
