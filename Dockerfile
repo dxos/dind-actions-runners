@@ -98,12 +98,16 @@ ENTRYPOINT ["/home/github/entrypoint.sh"]
 
 FROM actions-runner as dxos-actions-runner
 
+RUN sudo apt-get install -y autoconf automake make g++ libtool libxtst-dev libpng-dev libx11-dev jq gstreamer1.0-plugins-bad libenchant1c2a gstreamer1.0-libav lsof
+
 ENV NVM_DIR /home/github/.nvm
 
 RUN mkdir -p "$NVM_DIR" && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 
 RUN . $NVM_DIR/nvm.sh \
-    && nvm install 12.17 \
-    && nvm install 16.0
+    && nvm install 16.0 \
+    && nvm use 16.0 \
+    && npm install -g @microsoft/rush pnpm \
+    && npx playwright@1.11.0 install-deps
 
 # ENV PATH "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
