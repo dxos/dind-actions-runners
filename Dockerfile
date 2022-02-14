@@ -98,7 +98,8 @@ ENTRYPOINT ["/home/github/entrypoint.sh"]
 
 FROM actions-runner as dxos-actions-runner
 
-RUN sudo apt-get install -y autoconf automake make g++ libtool libxtst-dev libpng-dev libx11-dev jq gstreamer1.0-plugins-bad libenchant1c2a gstreamer1.0-libav lsof
+RUN sudo apt-get update
+RUN sudo apt-get install -y autoconf automake make cmake g++ libtool libxtst-dev libpng-dev libx11-dev jq gstreamer1.0-plugins-bad libenchant1c2a gstreamer1.0-libav lsof
 
 ENV NVM_DIR /home/github/.nvm
 
