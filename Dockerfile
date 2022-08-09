@@ -1,6 +1,6 @@
 FROM cruizba/ubuntu-dind as actions-runner
 
-ARG GITHUB_RUNNER_VERSION="2.278.0"
+ARG GITHUB_RUNNER_VERSION="2.294.0"
 
 ENV DEBIAN_FRONTEND "noninteractive"
 
@@ -67,13 +67,14 @@ RUN sudo apt-get install -y\
     libnss3\
     libxss1\
     libasound2\
-    libxtst6
+    libxtst6\
+    cmake
 
 # Install playwright deps
 RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
 RUN sudo apt-get update
-RUN sudo apt-get install -y\  
+RUN sudo apt-get install -y\
     xauth\
     xvfb\
     libgbm-dev\
@@ -94,7 +95,7 @@ RUN sudo chmod u+x ./entrypoint.sh
 
 ENTRYPOINT ["/home/github/entrypoint.sh"]
 
-
+RUN git clone https://github.com/pcarrier/baba && cd baba && cmake . && make && make install && cd .. && rm -fr baba
 
 FROM actions-runner as dxos-actions-runner
 
