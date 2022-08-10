@@ -106,11 +106,11 @@ ENV NVM_DIR /home/github/.nvm
 RUN mkdir -p "$NVM_DIR" && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 
 RUN . $NVM_DIR/nvm.sh \
-    && nvm install 16.14.2 \
-    && nvm use 16.14.2 \
+    && nvm install 16.14.0 \
+    && nvm use 16.14.0 \
     # Rush and pnpm version match the versions in rush.json:
     && npm install -g @microsoft/rush@5.58.0 pnpm@6.24.2 yarn@1.22.17 \
     && npx playwright@1.11.0 install-deps
 
-RUN echo ". $NVM_DIR/nvm.sh && nvm use 16.14.2" >> /home/github/.bashrc
+RUN echo ". $NVM_DIR/nvm.sh && nvm use 16.14.0" >> /home/github/.bashrc
 RUN echo 'export PATH="$(yarn global bin):$PATH"' >> /home/github/.bashrc
